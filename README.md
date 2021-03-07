@@ -181,35 +181,55 @@ length(which(values(lidar_chm) >= 30))
 
 [1] 0
 ```
-## 
+### Average Canomy Height
 
-values(lidar_chm)
-
-sum(values(lidar_chm), na.rm = TRUE)
+```
 mean(values(lidar_chm), na.rm = TRUE)
 
-## Outlier
+[1] 1.428235
+```
+
+## Outlier 0 m Height 
+
+```
 lidar_chm[lidar_chm == 0] <- NA
 length(which(values(lidar_chm) == 0))
 
+[1] 0
+```
+### Average Canopy Height exclude 0 m 
+```
 mean(values(lidar_chm), na.rm = TRUE)
 
+[1] 3.460434
+```
+### Create Data Frame to Store number of cell of different range
 
+#### Declare Data Frame
+```
 range_canopy = data.frame(matrix(ncol = 5, nrow = 1))
 c = c("0-2 m","2-10 m", "10-20 m", "20-30 m", "Sum")
 colnames(range_canopy) = c
+```
 
+#### Store the value
+```
 range_canopy[1,1] = length(which(values(lidar_chm) > 0 & values(lidar_chm) <= 2))
 range_canopy[1,2] = length(which(values(lidar_chm) > 2 & values(lidar_chm) <= 10))
 range_canopy[1,3] = length(which(values(lidar_chm) > 10 & values(lidar_chm) <= 20))
 range_canopy[1,4] = length(which(values(lidar_chm) > 20 & values(lidar_chm) <= 30))
 range_canopy[1,5] = sum(range_canopy[1,1:4])
-
-# Prepare a color palette. Here with R color brewer:
+```
+### Prepare a color palette. Here with R color brewer:
+```
 library(RColorBrewer)
 myPalette <- brewer.pal(5, "Set2") 
+```
 
+### Pie Chart
+```
 Prop = c(range_canopy[1,2], range_canopy[1,3], range_canopy[1,4])
 
 # You can change the border of each area with the classical parameters:
 pie(Prop , labels = c("2-10 m","10-20 m","20-30 m"), border="white", col=myPalette )
+```
