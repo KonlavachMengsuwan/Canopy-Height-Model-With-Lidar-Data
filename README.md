@@ -319,5 +319,5 @@ legend("topright",
        border = FALSE,
        bty = "n") # turn off legend borde
 ```
-![](Reclassified Plot.png)<!-- -->
+![](Reclassified.png)<!-- -->
 
