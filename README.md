@@ -64,7 +64,7 @@ plot(lidar_chm,
      main = "Lidar Canopy Height Model",
      col = c("white", "brown", "springgreen", "darkgreen"))
 ```
-![](CHM-All.png)<!-- -->
+![](CanopyHeight.png)<!-- -->
 
 
 ```
@@ -134,6 +134,7 @@ ncell(lidar_chm)
 
 [1] 8000000
 ```
+## Number of cell of different range
 
 ### Number of Raster cell which has value more than or equal to 0
 ```
@@ -142,11 +143,8 @@ length(which(values(lidar_chm) >= 0))
 [1] 7157728
 ```
 
-## Number of cell of different range
-
 ### Canopy Height Model: 0 m
 ```
-plot(lidar_chm == 0, col = color)
 length(which(values(lidar_chm) == 0))
 
 [1] 4203499
@@ -154,14 +152,12 @@ length(which(values(lidar_chm) == 0))
 
 ### Canopy Height Model: Greater than 0 m
 ```
-plot(lidar_chm >= 0, col = color)
 length(which(values(lidar_chm) >= 0))
 
 [1] 7157728
 ```
 ### Canopy Height Model: 0 - 2 m
 ```
-plot(lidar_chm >= 0 & lidar_chm <= 2, main = "Canopy Height 0 m - 2 m", col = color)
 length(which(values(lidar_chm) > 0 & values(lidar_chm) <= 2))
 
 [1] 1491326
@@ -169,7 +165,6 @@ length(which(values(lidar_chm) > 0 & values(lidar_chm) <= 2))
 
 ### Canopy Height Model: 2 - 10 m
 ```
-plot(lidar_chm >= 2 & lidar_chm <= 10, main = "Canopy Height 2 m - 10 m", col = color)
 length(which(values(lidar_chm) > 2 & values(lidar_chm) <= 10))
 
 [1] 1217191
@@ -177,7 +172,6 @@ length(which(values(lidar_chm) > 2 & values(lidar_chm) <= 10))
 
 ### Canopy Height Model: 10 - 20 m
 ```
-plot(lidar_chm >= 10 & lidar_chm <= 20, main = "Canopy Height 10 m - 20 m", col = color)
 length(which(values(lidar_chm) > 10 & values(lidar_chm) <= 20))
 
 [1] 244055
@@ -185,7 +179,6 @@ length(which(values(lidar_chm) > 10 & values(lidar_chm) <= 20))
 
 ### Canopy Height Model: 20 - 30 m
 ```
-plot(lidar_chm >= 20 & lidar_chm <= 30, main = "Canopy Height 20 m - 30 m", col = color)
 length(which(values(lidar_chm) > 20 & values(lidar_chm) <= 30))
 
 [1] 1657
