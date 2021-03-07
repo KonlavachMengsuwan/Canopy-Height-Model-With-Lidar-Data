@@ -245,3 +245,79 @@ pie(Prop , labels = c("2-10 m","10-20 m","20-30 m"), border="white", col=myPalet
 ```
 
 ![](Pie.png)<!-- -->
+
+# Canopy Height Model Reclassification
+
+## Calculate CHM again
+```
+lidar_chm <- lidar_dsm - lidar_dem
+```
+## Plot Histogram
+```
+hist(lidar_chm,
+     xlim = c(2, 30),
+     ylim = c(0, 60000),
+     breaks = 100,
+     main = "Histogram of canopy height model differences",
+     col = "springgreen",
+     xlab = "Pixel value")
+```
+
+## Reclassification
+### 0-2 meters = NA
+### 2-4 meters = 1 (Short Trees)
+### 4-7 meters = 2 (Medium Trees)
+### >= 7 = 3 (Tall Trees)
+
+```
+reclass_df = c(0, 2, NA,
+                2, 4, 1,
+                4, 7, 2,
+                7, Inf, 3)
+                
+reclass_df
+[1]   0   2  NA   2   4   1   4   7   2   7 Inf   3
+```
+
+## Reshape into matrix
+```
+reclass_m <- matrix(reclass_df,
+                ncol = 3,
+                byrow = TRUE)
+reclass_m
+```
+
+## Reclassify Raster
+```
+chm_classified <- reclassify(lidar_chm,
+                     reclass_m)
+```
+
+## Histogram Reclassified
+```
+barplot(chm_classified,
+        main = "Number of pixels in each class")
+```
+![](Hist_reclassified.png)<!-- -->
+
+### Assign 0 value to NA
+```
+chm_classified[chm_classified == 0] <- NA
+
+```
+
+## Reclassified Plot
+```
+plot(chm_classified,
+     legend = FALSE,
+     col = c("red", "blue", "green"), axes = FALSE,
+     main = "Classified Canopy Height Model \n short, medium, tall trees")
+
+legend("topright",
+       legend = c("short trees", "medium trees", "tall trees"),
+       fill = c("red", "blue", "green"),
+       border = FALSE,
+       bty = "n") # turn off legend borde
+```
+![](Reclassified Plot.png)<!-- -->
+
