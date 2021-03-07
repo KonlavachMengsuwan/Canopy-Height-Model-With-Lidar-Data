@@ -20,6 +20,7 @@ lidar_dem <- raster(x = "C:/Users/konla/Desktop/EarthLab/Canopy-Height-Model-Wit
 plot(lidar_dem,
      main = "Lidar Digital Elevation Model (DEM)")
 ```
+![](DEM.png)<!-- -->
 
 ## Digital Surface Model (DSM)
 ### Open DSM raster data
@@ -32,6 +33,8 @@ lidar_dsm <- raster(x = "C:/Users/konla/Desktop/EarthLab/Canopy-Height-Model-Wit
 plot(lidar_dsm,
      main = "Lidar Digital Surface Model (DSM)")
 ```
+![](DSM.png)<!-- -->
+
 
 ## Canopy Height Model (CHM)
 ```
@@ -52,6 +55,7 @@ lidar_chm <- lidar_dsm - lidar_dem
 plot(lidar_chm,
      main = "Lidar Canopy Height Model (CHM)")
 ```
+![](CHM.png)<!-- -->
 
 ### Plots Using Breaks
 ```
@@ -60,6 +64,9 @@ plot(lidar_chm,
      main = "Lidar Canopy Height Model",
      col = c("white", "brown", "springgreen", "darkgreen"))
 ```
+![](CHM-All.png)<!-- -->
+
+
 ```
 hist(lidar_chm,
      breaks = c(0, 2, 10, 20, 30),
@@ -68,6 +75,7 @@ hist(lidar_chm,
      xlab = "Canopy Height Model Range (m)",
      ylab = "Number of Raster Cells")
 ```
+![](Hist-CHM.png)<!-- -->
 
 ### Set up the Color from RColorBrewer
 ```
@@ -75,6 +83,7 @@ library(RColorBrewer)
 display.brewer.all()
 color = brewer.pal(n = 20, name = "Paired")
 ```
+![](RColorBrewer.png)<!-- -->
 
 ### Plot different range
 
@@ -82,21 +91,28 @@ color = brewer.pal(n = 20, name = "Paired")
 ```
 plot(lidar_chm, col = color, main = "Canopy Height: All Range")
 ```
+![](CHM-All.png)<!-- -->
 
 #### Canopy Height Model: 2 - 10 m
 ```
 plot(lidar_chm >= 2 & lidar_chm <= 10, main = "Canopy Height 2 m - 10 m", col = color, legend = F)
 ```
+![](CHM-2-1.png)<!-- -->
 
-#### Canopy Height Model: 2 - 10 m
+
+#### Canopy Height Model: 10 - 20 m
 ```
 plot(lidar_chm >= 10 & lidar_chm <= 20, main = "Canopy Height 10 m - 20 m", col = color, legend = F)
 ```
+![](CHM-10-20.png)<!-- -->
 
-#### Canopy Height Model: 2 - 10 m
+
+#### Canopy Height Model: 20 - 30 m
 ```
 plot(lidar_chm >= 20 & lidar_chm <= 30, main = "Canopy Height 20 m - 30 m", col = color, legend = F)
 ```
+![](CHM-20-30.png)<!-- -->
+
 
 ### Canopy Height Model raster information
 ```
@@ -128,7 +144,7 @@ length(which(values(lidar_chm) >= 0))
 
 ## Number of cell of different range
 
-### Height = 0 m
+### Canopy Height Model: 0 m
 ```
 plot(lidar_chm == 0, col = color)
 length(which(values(lidar_chm) == 0))
@@ -136,14 +152,14 @@ length(which(values(lidar_chm) == 0))
 [1] 4203499
 ```
 
-### Height Greater than or equal to 0
+### Canopy Height Model: Greater than 0 m
 ```
 plot(lidar_chm >= 0, col = color)
 length(which(values(lidar_chm) >= 0))
 
 [1] 7157728
 ```
-### Height range 0-2 m
+### Canopy Height Model: 0 - 2 m
 ```
 plot(lidar_chm >= 0 & lidar_chm <= 2, main = "Canopy Height 0 m - 2 m", col = color)
 length(which(values(lidar_chm) > 0 & values(lidar_chm) <= 2))
@@ -151,7 +167,7 @@ length(which(values(lidar_chm) > 0 & values(lidar_chm) <= 2))
 [1] 1491326
 ```
 
-### Height range 2-10 m
+### Canopy Height Model: 2 - 10 m
 ```
 plot(lidar_chm >= 2 & lidar_chm <= 10, main = "Canopy Height 2 m - 10 m", col = color)
 length(which(values(lidar_chm) > 2 & values(lidar_chm) <= 10))
@@ -159,7 +175,7 @@ length(which(values(lidar_chm) > 2 & values(lidar_chm) <= 10))
 [1] 1217191
 ```
 
-### Height range 10-20 m
+### Canopy Height Model: 10 - 20 m
 ```
 plot(lidar_chm >= 10 & lidar_chm <= 20, main = "Canopy Height 10 m - 20 m", col = color)
 length(which(values(lidar_chm) > 10 & values(lidar_chm) <= 20))
@@ -167,7 +183,7 @@ length(which(values(lidar_chm) > 10 & values(lidar_chm) <= 20))
 [1] 244055
 ```
 
-### Height range 20-30 m
+### Canopy Height Model: 20 - 30 m
 ```
 plot(lidar_chm >= 20 & lidar_chm <= 30, main = "Canopy Height 20 m - 30 m", col = color)
 length(which(values(lidar_chm) > 20 & values(lidar_chm) <= 30))
@@ -175,12 +191,13 @@ length(which(values(lidar_chm) > 20 & values(lidar_chm) <= 30))
 [1] 1657
 ```
 
-### Height greater than 30 m
+### Canopy Height Model: Greater than 30 m
 ```
 length(which(values(lidar_chm) >= 30))
 
 [1] 0
 ```
+
 ### Average Canomy Height
 
 ```
@@ -233,3 +250,5 @@ Prop = c(range_canopy[1,2], range_canopy[1,3], range_canopy[1,4])
 # You can change the border of each area with the classical parameters:
 pie(Prop , labels = c("2-10 m","10-20 m","20-30 m"), border="white", col=myPalette )
 ```
+
+![](Pie.png)<!-- -->
